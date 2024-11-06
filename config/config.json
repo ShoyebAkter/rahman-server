@@ -1,24 +1,25 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "deveteyi_rahman",
+    "password": "HgzR.ERhQM3B",
     "database": "deveteyi_rahmanGroup",
-    "host": "127.0.0.1",
+    "host": "server169.web-hosting.com",
     "dialect": "mysql",
     "port": "3306"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "deveteyi_rahman",
+    "password": "HgzR.ERhQM3B",
+    "database": "deveteyi_rahmanGroup",
+    "host": "server169.web-hosting.com",
+    "dialect": "mysql",
+    "port": "3306"
   },
   "production": {
     "username": "deveteyi_rahman",
     "password": "HgzR.ERhQM3B",
     "database": "deveteyi_rahmanGroup",
-    "host": "localhost",
+    "host": "server169.web-hosting.com",
     "dialect": "mysql",
     "port": "3306"
   }

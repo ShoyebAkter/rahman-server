@@ -1,6 +1,6 @@
 const express = require('express')
 const server = express()
-const PORT = 3306
+const PORT = 3000
 const cors = require('cors')
 const models = require('./models')
 require('dotenv').config();
