@@ -30,15 +30,21 @@ const getAgent = async (req, res) => {
 }
 
 const addAgent = async (req, res) => {
-
+    // console.log(req,res)
     try {  
         const roleName = req.authenticatedUser.loginInfo.UserRole.roleName
         const data = req.body
-        console.log(data)
+        console.log(data,roleName)
         if(roleName === "admin"){
-            await Agent.create(data).then(result => {
-                res.json(result)
-            })
+            try {
+                const result = await Agent.create(data);
+                res.json(result);
+                console.log(result);
+            } catch (err) {
+                console.error('Error creating agent:', err);
+                res.status(500).json({ error: 'An error occurred while creating the agent' });
+            }
+            
         }else{
             res.status(500).json({error: "Access denied"})
         }

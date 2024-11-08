@@ -3,18 +3,25 @@
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const process = require('process');
+require('dotenv').config(); // Load environment variables
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 
 let sequelize;
+// console.log(config,config.use_env_variable)
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
+  sequelize = new Sequelize(config.use_env_variable, {
+    dialect: 'mysql',
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false // Use this option if SSL is required by Clever Cloud
+      }
+    }
+  });
+  console.log("error where")
+} 
 
 fs
   .readdirSync(__dirname)

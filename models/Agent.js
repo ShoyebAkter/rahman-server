@@ -19,13 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         email: {
             type: DataTypes.STRING,
             allowNull: true,
-            validate: {
-                isEmailOrEmpty(value) {
-                    if (value && !validator.isEmail(value)) {
-                        throw new Error('Invalid email format.');
-                    }
-                },
-            }
+            
         },
     },{
         tableName: "agents",

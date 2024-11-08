@@ -1,6 +1,7 @@
+
 const express = require('express')
 const server = express()
-const PORT = 3000
+const port = process.env.PORT || 4000;
 const cors = require('cors')
 const models = require('./models')
 require('dotenv').config();
@@ -39,6 +40,6 @@ cron.schedule(cronSchedule, passportReminder);
 
 models.sequelize.sync()
 .then(() => {
-    server.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+    server.listen(port, () => console.log(`Server running on port ${port}`))
 })
 .catch(err => console.log(err))

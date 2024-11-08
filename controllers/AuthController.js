@@ -31,6 +31,7 @@ const login = async (req, res) => {
                         // Respond with an error if there is an issue with bcrypt
                         return res.status(500).json({ error: err.message });
                     }
+                    console.log(result,formData.password,user.password)
                     if (result) {
                         // If passwords match, create a JWT token and respond with it
                         const data = {

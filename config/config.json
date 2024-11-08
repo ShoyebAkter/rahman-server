@@ -1,26 +1,10 @@
 {
   "development": {
-    "username": "deveteyi_rahman",
-    "password": "HgzR.ERhQM3B",
-    "database": "deveteyi_rahmanGroup",
-    "host": "server169.web-hosting.com",
-    "dialect": "mysql",
-    "port": "3306"
-  },
-  "test": {
-    "username": "deveteyi_rahman",
-    "password": "HgzR.ERhQM3B",
-    "database": "deveteyi_rahmanGroup",
-    "host": "server169.web-hosting.com",
-    "dialect": "mysql",
-    "port": "3306"
+    "use_env_variable": "mysql://ublsqd7wpbkmqpvm:9nckKOykvnYgYaz6koZ4@b4dsfrpqtbk5kuwj7ibb-mysql.services.clever-cloud.com:3306/b4dsfrpqtbk5kuwj7ibb",
+    "dialect": "mysql"
   },
   "production": {
-    "username": "deveteyi_rahman",
-    "password": "HgzR.ERhQM3B",
-    "database": "deveteyi_rahmanGroup",
-    "host": "server169.web-hosting.com",
-    "dialect": "mysql",
-    "port": "3306"
+    "use_env_variable": "mysql://ublsqd7wpbkmqpvm:9nckKOykvnYgYaz6koZ4@b4dsfrpqtbk5kuwj7ibb-mysql.services.clever-cloud.com:3306/b4dsfrpqtbk5kuwj7ibb",
+    "dialect": "mysql"
   }
 }
