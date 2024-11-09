@@ -19,11 +19,7 @@ const reminder = require('./utils/visaReminder')
 const passportReminder = require('./utils/passportReminder')
 
 server.use(express.json())
-server.use(cors({
-    origin: ['https://rahman-group.vercel.app', 'http://localhost:3000'], // Update with your frontend URL
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    credentials: true // If you need to allow cookies
-  }));
+server.use(cors())
 
 server.use("/auth", authRoute)
 server.use("/user", userRoute)
