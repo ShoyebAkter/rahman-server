@@ -218,6 +218,9 @@ const add = async (req, res) => {
     nationality,
     mobile,
     email,
+    emName,
+    emMobile,
+    bloodGroup,
     idNo,
     status,
     agentId,
@@ -276,12 +279,26 @@ const add = async (req, res) => {
         // { transaction }
       );
       console.log('VIsa created successfully:',visaInfo);
+
+      const emergencyContact = await EmergencyContact.create({
+        employeeId: newEmp.id,
+        fullName: emName,
+        mobile: emMobile,
+    }, { transaction });
+
+    const healthInfo = await Health.create({
+        employeeId: newEmp.id,
+        bloodGroup: bloodGroup,
+    }, { transaction });
+
       // Commit the transaction if all operations are successful
     //   await transaction.commit();
 
       // Respond with the created user and login details
       return res.json({
         employeeInfo: newEmp,
+        emergencyContact,
+        healthInfo,
         passportInfo,
         visaInfo,
       });
