@@ -284,13 +284,17 @@ const add = async (req, res) => {
         employeeId: newEmp.id,
         fullName: emName,
         mobile: emMobile,
-    }, { transaction });
-
+    },
+    //  { transaction }
+     );
+    console.log('em created successfully:',emergencyContact);
     const healthInfo = await Health.create({
         employeeId: newEmp.id,
         bloodGroup: bloodGroup,
-    }, { transaction });
-
+    }, 
+    // { transaction }
+    );
+    console.log('Health created successfully:',healthInfo);
       // Commit the transaction if all operations are successful
     //   await transaction.commit();
 
@@ -532,11 +536,11 @@ const uploadFile = async (req, res) => {
         body: fs.createReadStream(filePath),
       },
     });
-
+    console.log("uploaded file",response)
     // Handle the response and database operations
     if (response.data) {
       const result = await generatePublicUrl(response.data.id);
-
+      console.log("backend id",result)
       const attachment = await Attachment.create({
         fileName,
         fileTitle,

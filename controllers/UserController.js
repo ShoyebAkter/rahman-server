@@ -21,62 +21,45 @@ const getUser = (req, res) => {
 }
 
 const addUser = async (req, res) => {
-    // Extracting relevant data from the request body
     const { email, firstName, lastName, mobile, password, roleId } = req.body;
+    
+    const transaction = await sequelize.transaction(); // Start a transaction
+
     try {
-        // If user does not exist, create a new user
+        // Create the user and login details within the same transaction
         const newUser = await User.create({
             firstName: firstName,
             lastName: lastName,
             mobile: mobile,
-        });
+        }, { transaction });
 
-        // Hash the provided password
         const hashedPassword = generateHashedPassword(password);
-    
-        // Use a transaction to ensure data consistency across multiple operations
-        const transaction = await sequelize.transaction();
 
-        try {
-            // Create login details for the new user
-            const loginDetail = await LoginDetail.create({
-                userId: newUser.id,
-                email: email,
-                roleId: roleId,
-                password: hashedPassword,
-            }, { transaction });
+        const loginDetail = await LoginDetail.create({
+            userId: newUser.id,
+            email: email,
+            roleId: roleId,
+            password: hashedPassword,
+        }, { transaction });
 
-            // Commit the transaction if all operations are successful
-            await transaction.commit();
+        // Commit the transaction if both create calls succeed
+        await transaction.commit();
 
-            // Respond with the created user and login details
-            res.json({ userData: newUser, loginData: loginDetail });
-        } catch (error) {
-            // Rollback the transaction if any operation fails
-            await transaction.rollback();
-
-            // Delete the user if login detail creation fails
-            await User.destroy({ where: { id: newUser.id } });
-
-            // Handle errors and respond with appropriate status and message
-            if (error.errors) {
-                const error_message = error.errors.map(err => `For ${err.value} :` + err.message);
-                res.status(500).json({ error: error_message.join(', ') });
-            } else {
-                res.status(500).json({ error: error.message });
-            }
-        }
-    
+        res.json({ userData: newUser, loginData: loginDetail });
     } catch (error) {
-        // Catch and handle any unexpected errors
-       if(error.errors){
-            const error_message = error.errors.map(err => err.message);
-            res.status(500).json({ error: error_message[0] });
-        }else{
-            res.status(500).json({error: error.message})
+        // Rollback transaction if there was an error
+        await transaction.rollback();
+
+        // Handle any validation or other errors
+        if (error.errors) {
+            const error_message = error.errors.map(err => `For ${err.value} :` + err.message);
+            res.status(500).json({ error: error_message.join(', ') });
+        } else {
+            res.status(500).json({ error: error.message });
         }
     }
 };
+
 
 const editUser = async (req, res) => {
     try {
